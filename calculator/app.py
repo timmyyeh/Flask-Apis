@@ -22,6 +22,12 @@ def addition():
         'Sum': data['x'] + data['y']
     })
 
+@app.route('/subtract')
+def subtract():
+    data = request.get_json()
+    return jsonify({
+        "DATA": data['x'] - data['y']
+    })
 
 if __name__ == "__main__":
     app.run()
