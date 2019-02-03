@@ -58,5 +58,24 @@ def store():
         'success': res.raw_result
     })
 
+@app.route('/get')
+def get():
+    data = request.get_json()
+
+    sentence = Sentance.find({'username':data['username']})[0]
+
+    if not bcrypt.hashpw(data['password'], sentence['password']) == sentence['password']:
+        return jsonify({
+            'error': 'password does not match',
+            'status': 301
+        })
+    
+    return jsonify({
+        'success': True,
+        'sentence': sentence['sentence']
+    })
+    
+
+
 if __name__ == "__main__":
     app.run()
