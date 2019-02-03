@@ -39,6 +39,24 @@ def register():
         'status': 200
     })
 
+@app.route('/store', methods=['POST'])
+def store():
+    data = request.get_json()
+
+    # find user
+    sentence = Sentance.find({'username':data['username']})[0]
+    # check password
+    if not bcrypt.hashpw(data['password'], sentence['password']) == sentence['password']:
+        return jsonify({
+            'error': 'password does not match',
+            'status': 301
+        })
+
+    # update sentence
+    res = Sentance.update_one({'username': data['username']}, {'$set': {'sentence': data['sentence']}})
+    return jsonify({
+        'success': res.raw_result
+    })
 
 if __name__ == "__main__":
     app.run()
