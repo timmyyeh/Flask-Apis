@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/Users/timmyyeh/.pyenv/versions/3.6.7/bin/python"
+    "python.pythonPath": "/Users/timmyyeh/.pyenv/versions/3.6.7/bin/python",
+    "python.linting.pylintPath": "/Users/timmyyeh/.local/lib/python3.6/site-packages/pylint"
 }
