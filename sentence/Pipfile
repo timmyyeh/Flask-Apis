@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 flask = "*"
 pymongo = "*"
+py-bcrypt = "*"
 
 [requires]
 python_version = "3.7"
