@@ -3,9 +3,13 @@ from flask import (
     request,
     jsonify
 )
+from pymongo import MongoClient
 import requests
 
 app = Flask(__name__)
+client = MongoClient('localhost', 27017)
+db = client['mydb']
+UserNum = db['UserNum']
 
 @app.route('/')
 def index():
@@ -28,6 +32,14 @@ def subtract():
     return jsonify({
         "DATA": data['x'] - data['y']
     })
+
+@app.route('/visit')
+def visit():
+    prev = UserNum.find({})[0]["num_of_users"]
+    num = prev + 1
+    UserNum.update({},{'$set': {"num_of_users": num}})
+    return 'previous num: {0}, updated num: {1}'.format(str(prev),str(num))
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",debug=True)
