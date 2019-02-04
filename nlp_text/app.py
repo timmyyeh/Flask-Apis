@@ -17,6 +17,37 @@ User = db['user']
 def index():
     return 'ok'
 
+@app.route('/register')
+def register():
+    data = request.get_json()
+    
+    if userExist(data['username']):
+        return jsonify({
+            'status': 301,
+            'message': 'username already exist'
+        })
+    
+    # hash the user password
+    hashpass = bcrypt.hashpw(data['password'], bcrypt.gensalt())
+
+    # store it into database
+    User.insert({
+        'username': data['username'],
+        'password': hashpass,
+        'tokens': 5
+    })
+
+    return jsonify({
+        'status': 200,
+        'success': True
+    })
+
+def userExist(username):
+    if User.find({'username': username}).count() == 1:
+        return True
+    return False
+
+
 if __name__ == "__main__":
     app.run()
 
