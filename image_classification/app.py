@@ -4,7 +4,6 @@ from flask import (
     request
 )
 
-import bcrypt
 from pymongo import MongoClient
 
 app = Flask(__name__)
@@ -16,6 +15,20 @@ Image = db['Images']
 def index():
     return 'ok'
 
+@app.route('/register')
+def register():
+    data = request.get_json()
+
+    res = Image.insert_one({
+        'username': data['username'],
+        'password': data['password'],
+        'toke_amount': data['token_amount']
+    })
+
+    return jsonify({
+        'success': True,
+        'data': res
+    })
 
 
 if __name__ == "__main__":
