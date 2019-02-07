@@ -1,0 +1,1 @@
+{"giant panda, panda, panda bear, coon bear, Ailuropoda melanoleuca": "0.9490737", "lesser panda, red panda, panda, bear cat, cat bear, Ailurus fulgens": "0.0021516324", "brown bear, bruin, Ursus arctos": "0.00085682963", "earthstar": "0.0007064868", "ice bear, polar bear, Ursus Maritimus, Thalarctos maritimus": "0.00061749236"}
