@@ -34,12 +34,27 @@ def register():
 def deposit():
     data = request.get_json()
 
-    # check password
+    # find person
+    person = User.find_one({'username': data['username']})
 
     # store money
-    res = User.update_one({'username': data['username']}, {'$set': {'amount': data['amount']}})
-
+    res = User.update_one({'username': data['username']}, {'$set': {'amount': data['amount'] + person['amount']}})
     print(res.raw_result)
     return jsonify({'success': True})
+
+@app.route('/withdraw', methods=['POST'])
+def withdraw():
+    data = request.get_json()
+
+    # find person
+    person = User.find_one({'username': data['username']})
+
+    # check password
+
+    # check balance
+
+    # update
+    User.update_one({'username': data['username']}, {'$set': {'amount': person['amount'] - data['amount']}})
+    return jsonify({'success':True})
 if __name__ == "__main__":
     app.run()
