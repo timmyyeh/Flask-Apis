@@ -30,5 +30,16 @@ def register():
     
     return jsonify({'success': True})
 
+@app.route('/deposit', methods=['POST'])
+def deposit():
+    data = request.get_json()
+
+    # check password
+
+    # store money
+    res = User.update_one({'username': data['username']}, {'$set': {'amount': data['amount']}})
+
+    print(res.raw_result)
+    return jsonify({'success': True})
 if __name__ == "__main__":
     app.run()
